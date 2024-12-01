@@ -17,7 +17,6 @@ def get_total_distance(list1:  list, list2: list) -> int:
     list2_copy.sort()
     for index, element in enumerate(list1_copy):
         total += abs(element-list2_copy[index])
-
     return total
 
 
