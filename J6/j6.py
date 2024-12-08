@@ -54,8 +54,9 @@ def get_map_guard_and_notes(path: str) -> tuple[Map, Guard, Map]:
         for y, line in enumerate(lines):
             for x, char in enumerate(line.strip()):
                 if char == "^":
-                    guardian = Guard((x, y), (0, -1))  # Changed to (0, -1) since ^ points up
+                    guardian = Guard((x, y), (0, -1))
                     notes.content[y][x] = "$"
+                    map_instance.content[y][x] = "."
         return map_instance, guardian, notes
 
 
@@ -65,7 +66,7 @@ def get_total_distinct_position(map, guard, notes) -> int:
         next_step_coord = guard.get_next_coord()
         next_step_type = map.get_cell_type(next_step_coord[0], next_step_coord[1])
         match next_step_type:
-            case "." | "^":
+            case ".":
                 guard.walk()
                 notes.content[next_step_coord[1]][next_step_coord[0]] = "$"
             case "out":
