@@ -4,8 +4,8 @@ def get_map(path: str) -> dict:
     height = 0
     with open(path, "r") as f:
         lines = f.readlines()
-        width = len(lines)
-        height = len(lines[0])
+        width = len(lines[0].replace("\n", ""))
+        height = len(lines)
         for y, line in enumerate(lines):
             for x, char in enumerate(line):
                 if char != "." and char != "\n":
