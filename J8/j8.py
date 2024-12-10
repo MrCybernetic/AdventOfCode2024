@@ -1,6 +1,3 @@
-antinodes = set()
-
-
 def get_map(path: str) -> dict:
     map = {}
     width = 0
@@ -20,26 +17,26 @@ def get_map(path: str) -> dict:
 
 
 def get_number_of_antinodes(map: dict, width: int, height: int) -> int:
+    antinodes = set()
     for antenna_frequency in map.keys():
         elements = map[antenna_frequency]
         num_elements = len(elements)
         for i in range(num_elements):
             for j in range(num_elements):
                 if i != j:
-                    get_antinodes_in_map(elements[i], elements[j], width, height)
-
+                    get_antinodes_in_map(antinodes, elements[i], elements[j], width, height)
     return len(antinodes)
 
 
-def get_antinodes_in_map(antenna1: tuple, antenna2: tuple, map_width: int, map_haight: int) -> None:
+def get_antinodes_in_map(antinodes: set, antenna1: tuple, antenna2: tuple, map_width: int, map_haight: int) -> None:
     x1, y1, x2, y2 = 0, 0, 0, 0
     x1 = antenna2[0] + (antenna2[0] - antenna1[0])
     y1 = antenna2[1] + (antenna2[1] - antenna1[1])
     x2 = antenna1[0] - (antenna2[0] - antenna1[0])
     y2 = antenna1[1] - (antenna2[1] - antenna1[1])
-    if (x1 >= 0 and x1 < map_width) and (y1 >= 0 and y1 < map_haight):
+    if (0 <= x1 < map_width) and (0 <= y1 < map_haight):
         antinodes.add((x1, y1))
-    if (x2 >= 0 and x2 < map_width) and (y2 >= 0 and y2 < map_haight):
+    if (0 <= x2 < map_width) and (0 <= y2 < map_haight):
         antinodes.add((x2, y2))
 
 
