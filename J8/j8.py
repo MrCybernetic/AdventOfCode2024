@@ -44,10 +44,12 @@ def get_number_of_antinodes(map: dict, width: int, height: int, part_number: int
 
 def get_antinodes_in_map(antinodes: set, antenna1: tuple, antenna2: tuple, map_width: int, map_haight: int) -> None:
     x1, y1, x2, y2 = 0, 0, 0, 0
-    x1 = antenna2[0] + (antenna2[0] - antenna1[0])
-    y1 = antenna2[1] + (antenna2[1] - antenna1[1])
-    x2 = antenna1[0] - (antenna2[0] - antenna1[0])
-    y2 = antenna1[1] - (antenna2[1] - antenna1[1])
+    dx = antenna2[0] - antenna1[0]
+    dy = antenna2[1] - antenna1[1]
+    x1 = antenna2[0] + dx
+    y1 = antenna2[1] + dy
+    x2 = antenna1[0] - dx
+    y2 = antenna1[1] - dy
     if (0 <= x1 < map_width) and (0 <= y1 < map_haight):
         antinodes.add((x1, y1))
     if (0 <= x2 < map_width) and (0 <= y2 < map_haight):
@@ -56,12 +58,12 @@ def get_antinodes_in_map(antinodes: set, antenna1: tuple, antenna2: tuple, map_w
 
 def get_antinodes_in_map_part2(antinodes: set, antenna1: tuple, antenna2: tuple, map_width: int, map_height: int) -> None:
     x1, y1, x2, y2 = 0, 0, 0, 0
-    antinodes.add(antenna1)
-    antinodes.add(antenna2)
     dx = antenna2[0] - antenna1[0]
     dy = antenna2[1] - antenna1[1]
     x1, y1 = antenna2
     x2, y2 = antenna1
+    antinodes.add(antenna1)
+    antinodes.add(antenna2)
     while (0 <= x1 < map_width) and (0 <= y1 < map_height):
         antinodes.add((int(x1), int(y1)))
         vizu[y1][x1] = "#"
